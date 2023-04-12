@@ -1,0 +1,45 @@
+﻿<Window x:Class="超市管理系统.View.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:超市管理系统.View"
+        mc:Ignorable="d"
+        x:Name="loginView"
+        WindowStartupLocation="CenterScreen"
+        Background="{Binding AppData.Background}"        
+        DataContext="{Binding Source={StaticResource Locator},Path=LoginViewModel}"
+        Title="系统登录" Height="450" Width="850">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding AppData.FullTitle}" Foreground="{Binding AppData.Foreground}" FontSize="36">
+            <TextBlock.Effect>
+                <DropShadowEffect >
+                    
+                </DropShadowEffect>
+            </TextBlock.Effect>
+        </TextBlock>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <DockPanel>
+                <TextBlock Text="用户名:" Width="50" VerticalAlignment="Center" Foreground="{Binding AppData.Foreground}"/>
+                <TextBox Text="{Binding Member.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="150" Height="25" Margin="15 0 0  0"/>
+            </DockPanel>
+            <DockPanel  Margin="0 15 0 0 ">
+                <TextBlock Text="密码:" Width="50" VerticalAlignment="Center" Foreground="{Binding AppData.Foreground}"/>
+                <TextBox Text="{Binding Member.Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="150" Height="25" Margin="15 0 0  0"/>
+            </DockPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0 15 0 0 ">
+                <Button Content="登录" 
+                        Command="{Binding LoginCommand}" 
+                        CommandParameter="{Binding ElementName=loginView}" Width="60" Height="25" HorizontalAlignment="Right"/>
+                <Button Content="退出" 
+                        Command="{Binding ExitCommand}"
+                        CommandParameter="{Binding ElementName=loginView}"
+                        Width="60" Height="25" HorizontalAlignment="Right" Margin="30 0 0 0"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,85 @@
+﻿<Window x:Class="超市管理系统.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:超市管理系统" xmlns:view="clr-namespace:超市管理系统.View"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Source={StaticResource Locator},Path=Main}"
+        Background="{Binding AppData.Background}"
+        Title="{Binding AppData.FullTitle}" Height="750" Width="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <!--顶部内容-->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--左边内容-->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xf218;" FontFamily="/Fonts/#FontAwesome" Margin="10" FontSize="30">
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush>
+                                <!--开始色 -->
+                                <GradientStop Offset="0" Color="#C2F486" />
+                                <!--结尾色 -->
+                                <GradientStop Offset="1" Color="Red" />
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBlock Text="{Binding AppData.Title}" Margin="0" FontSize="20" VerticalAlignment="Center">
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush>
+                                <!--开始色 -->
+                                <GradientStop Offset="0" Color="#C2F486" />
+                                <!--结尾色 -->
+                                <GradientStop Offset="1" Color="Red" />
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <RadioButton x:Name="IndexView" Checked="View_Checked" Style="{StaticResource MenuRadioButtonStyle}" Content="首页" Tag="&#xf015;"/>
+                    <RadioButton x:Name="OrderView"  Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="商品下单" Tag="&#xf217;"/>
+                    <RadioButton x:Name="ProductView" Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="商品管理" Tag="&#xf16b;"/>
+                    <RadioButton x:Name="CustomerView" Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="顾客管理" Tag="&#xf2bc;"/>
+                    <RadioButton x:Name="SupplierView" Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="供应商管理" Tag="&#xf0d1;"/>
+                    <RadioButton x:Name="InstorageView" Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="入库管理" Tag="&#xf00b;"/>
+                    <RadioButton x:Name="OutStorageView" Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="出库管理" Tag="&#xf0ce;"/>
+                    <RadioButton x:Name="OrderDetailView" Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="订单详情" Tag="&#xf1e8;"/>
+                    <RadioButton x:Name="MemberView" Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="用户管理" Tag="&#xf2be;"/>
+                    <RadioButton x:Name="SettingView" Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="系统设置" Tag="&#xf085;"/>
+                </StackPanel>
+            </Grid>
+            <!--line-->
+            <Border Grid.Column="1" Background="#22304B"/>
+            <!--右边内容-->
+            <ContentControl x:Name="container" Grid.Column="2" >
+                <view:IndexView/>
+            </ContentControl>
+        </Grid>
+        
+        <!--底部Bar-->
+        <Grid Grid.Row="1">
+            <StatusBar>
+                <StatusBarItem>
+                    <TextBlock Text="当前用户:"/>
+                </StatusBarItem>
+                <StatusBarItem>
+                    <TextBlock Text="{Binding AppData.CurrentUser.Name}"/>
+                </StatusBarItem>
+            </StatusBar>
+        </Grid>
+    </Grid>
+</Window>

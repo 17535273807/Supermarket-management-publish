@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--提示对话框按钮样式-->
+    <Style x:Key="ButtonDialogStyle" TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Foreground" Value="#2383FC"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Border Background="Transparent" BorderBrush="#2383FC" BorderThickness="1">
+                            <TextBlock x:Name="textblock" 
+                                       Text="{TemplateBinding Content}" 
+                                       Foreground="{TemplateBinding Foreground}" 
+                                       FontSize="{TemplateBinding FontSize}"
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" 
+                                       Margin="5"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#2383FC"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
