@@ -130,7 +130,9 @@
     <Compile Include="Entity\SupplierProvider.cs" />
     <Compile Include="Enums\LevelType.cs" />
     <Compile Include="Enums\ProductType.cs" />
+    <Compile Include="Enums\StockType.cs" />
     <Compile Include="Enums\UnitType.cs" />
+    <Compile Include="Helper\ImageHelper.cs" />
     <Compile Include="Readme.cs" />
     <Compile Include="ViewModel\AddCustomerViewModel.cs" />
     <Compile Include="ViewModel\AddMemberViewModel.cs" />

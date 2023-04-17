@@ -66,6 +66,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Quantity" Type="float" Nullable="false" />
           <Property Name="InsertDate" Type="datetime" />
         </EntityType>
@@ -97,9 +98,9 @@
           <EntitySet Name="Member" EntityType="ShoppingDBModel.Member" />
           <EntitySet Name="Order" EntityType="ShoppingDBModel.Order" />
           <EntitySet Name="OrderDetail" EntityType="ShoppingDBModel.OrderDetail" />
+          <EntitySet Name="Product" EntityType="ShoppingDBModel.Product" />
           <EntitySet Name="Stock" EntityType="ShoppingDBModel.Stock" />
           <EntitySet Name="Supplier" EntityType="ShoppingDBModel.Supplier" />
-          <EntitySet Name="Product" EntityType="ShoppingDBModel.Product" />
         </EntityContainer>
         <EntityType Name="Customer">
           <Key>
@@ -142,25 +143,6 @@
           <Property Name="Price" Type="Double" Nullable="false" />
           <Property Name="InsertDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="Stock">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Double" Nullable="false" />
-          <Property Name="InsertDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Supplier">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="InsertDate" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id" />
@@ -173,6 +155,26 @@
           <Property Name="Price" Type="Double" />
           <Property Name="Quantity" Type="Double" />
           <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InsertDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Double" Nullable="false" />
+          <Property Name="InsertDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="InsertDate" Type="DateTime" Precision="3" />
         </EntityType>
         </Schema>
@@ -226,11 +228,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="ShoppingDBModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Stock">
             <EntityTypeMapping TypeName="ShoppingDBModel.Stock">
               <MappingFragment StoreEntitySet="Stock">
                 <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -243,21 +261,6 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Telephone" ColumnName="Telephone" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Product">
-            <EntityTypeMapping TypeName="ShoppingDBModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

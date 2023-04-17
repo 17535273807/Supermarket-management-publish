@@ -6,8 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using 超市管理系统.Entity;
 using 超市管理系统.Enums;
+using 超市管理系统.Helper;
 
 namespace 超市管理系统.ViewModel
 {
@@ -41,7 +43,18 @@ namespace 超市管理系统.ViewModel
         {
             get { return product; }
             set { product = value; RaisePropertyChanged(); }
-        }       
+        }
+
+        private BitmapImage imageSource;
+        /// <summary>
+        ///  当前商品图片
+        /// </summary>
+        public BitmapImage ImageSource
+        {
+            get { return imageSource; }
+            set { imageSource = value; RaisePropertyChanged(); }
+        }
+        
 
         public RelayCommand<Window> LoadedCommand
         {
@@ -51,6 +64,8 @@ namespace 超市管理系统.ViewModel
                 {
                     Product = new Product();
                     SupplierList = supplierProvider.GetAll();
+                    ImageSource = null;
+                    Supplier = null;
                 });
             }
         }
@@ -67,6 +82,13 @@ namespace 超市管理系统.ViewModel
                         return;
                     }
 
+                    if (Supplier == null)
+                    {
+                        MessageBox.Show("请选择供应商!");
+                        return;
+                    }
+
+                    Product.SupplierId = Supplier.Id;
                     Product.InsertDate = DateTime.Now;
                     int count = productProvider.Insert(Product);
                     if (count > 0)
@@ -100,18 +122,12 @@ namespace 超市管理系统.ViewModel
                     //设置是否允许多选
                     openFileDialog.Multiselect = false;
                     //按下确定选择的按钮
-                    if (openFileDialog.ShowDialog().Value ==true)
+                    if (openFileDialog.ShowDialog().Value == true)
                     {
                         //获得文件路径
-                        string localFilePath = openFileDialog.FileName.ToString();
-                        //获取文件路径，不带文件名
-                        //FilePath = localFilePath.Substring(0, localFilePath.LastIndexOf("\\"));
-                        //获取文件名，带后缀名，不带路径
-                        string fileNameWithSuffix = localFilePath.Substring(localFilePath.LastIndexOf("\\") + 1);
-                        //去除文件后缀名
-                        string fileNameWithoutSuffix = fileNameWithSuffix.Substring(0, fileNameWithSuffix.LastIndexOf("."));
-                        //在文件名里加字符
-                        string newFileName = localFilePath.Insert(1, "dameng");
+                        string fileName = openFileDialog.FileName;
+                        ImageSource = new BitmapImage(new Uri(fileName));
+                        Product.Image = ImageHelper.GetImageString(fileName);                        
                     }
                 });
             }

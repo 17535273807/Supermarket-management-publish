@@ -3,10 +3,82 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:超市管理系统.View"
+        xmlns:local="clr-namespace:超市管理系统.View" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="EditProductView" Height="450" Width="800">
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Source={StaticResource Locator},Path=EditProductViewModel}"
+        Title="修改商品" Height="450" Width="650">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Height="50" Background="{Binding AppData.Background}">
+            <TextBlock Text="修改商品" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="1" Margin="10" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Height="30" Margin="0 5 0 10">
+                    <TextBlock Text="供应商：" MinWidth="70" FontSize="18" VerticalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding SupplierList}" SelectedItem="{Binding Supplier}" DisplayMemberPath="Name" MinWidth="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="30" Margin="0 5 0 10">
+                    <TextBlock Text="单位：" Width="70" FontSize="18" VerticalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding Product.Units}" SelectedItem="{Binding Product.Unit}" MinWidth="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="30" Margin="0 5 0 10">
+                    <TextBlock Text="类型：" Width="70" FontSize="18" VerticalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding Product.ProductTypes}" SelectedItem="{Binding Product.Category}" MinWidth="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="30" Margin="0 5 0 10">
+                    <TextBlock Text="商品名：" Width="70" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Product.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" MinWidth="200" Height="30" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="30" Margin="0 5 0 10">
+                    <TextBlock Text="单价：" Width="70" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Product.Price,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" MinWidth="200" Height="30" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="30" Margin="0 5 0 10">
+                    <TextBlock Text="库存：" Width="70" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Product.Quantity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" MinWidth="200" Height="30" VerticalAlignment="Center"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            <Grid Grid.Column="1" Margin="10" Background="#E2E2E2" Cursor="Hand">
+                <TextBlock Text="选择商品图片" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border Background="Transparent">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseUp">
+                            <i:InvokeCommandAction Command="{Binding SelectImageCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Image Source="{Binding ImageSource}"></Image>
+                </Border>
+            </Grid>
+
+        </Grid>
+
+
+        <StackPanel Grid.Row="2" Margin="10" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Content="确定" Width="80" Height="25" Margin="10" Command="{Binding OkCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"/>
+            <Button Content="关闭" Width="80" Height="25" Margin="10" Command="{Binding ExitCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"/>
+        </StackPanel>
     </Grid>
 </Window>

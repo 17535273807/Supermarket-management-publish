@@ -28,14 +28,10 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <DataGrid ItemsSource="{Binding SupplierList}"
-                      SelectedItem="{Binding Supplier}"
+            <DataGrid ItemsSource="{Binding ProductList}"
+                      SelectedItem="{Binding Product}" FontSize="14"
                       Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <!--<DataGridTextColumn Width="auto" Binding="{Binding Id}" Header="序号"/>                    
-                    <DataGridTextColumn Width="auto" Binding="{Binding Name}" Header="姓名"/>
-                    <DataGridTextColumn Width="auto" Binding="{Binding Telephone}" Header="电话"/>
-                    <DataGridTextColumn Width="auto" Binding="{Binding Address}" Header="地址"/>-->
 
                     <DataGridTemplateColumn Width="auto" Header="序号">
                         <DataGridTemplateColumn.CellTemplate>
@@ -47,7 +43,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Width="auto" Header="姓名">
+                    <DataGridTemplateColumn Width="auto" Header="商品名称">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -57,21 +53,67 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Width="auto" Header="电话">
+                    <DataGridTemplateColumn Width="auto" Header="商品图片">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBox Text="{Binding Telephone,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}"/>
+                                    <Image Source="{Binding BitmapImage}">
+                                        <Image.ToolTip>
+                                            <Grid>
+                                                <Image Source="{Binding BitmapImage}"></Image>
+                                            </Grid>
+                                        </Image.ToolTip>
+                                    </Image>
                                 </Grid>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Width="auto" Header="地址">
+                    <DataGridTemplateColumn Width="auto" Header="分类">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBox Text="{Binding Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}" HorizontalAlignment="Left" />
+                                    <TextBox Text="{Binding Category,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}" HorizontalAlignment="Left" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="auto" Header="单价">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding Price,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}" HorizontalAlignment="Left" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="auto" Header="库存">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding Quantity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}" HorizontalAlignment="Left" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="auto" Header="单位">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding Unit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}" HorizontalAlignment="Left" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="auto" Header="日期">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding InsertDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}" HorizontalAlignment="Left" />
                                 </Grid>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -86,7 +128,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Margin="0 5 5 5" HorizontalAlignment="Left" Orientation="Horizontal" >
                     <TextBlock Text="当前：" Width="auto" Height="25" Margin="0 0 10 0" Foreground="White" VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding Supplier.Name}" Width="auto" Height="25" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding Product.Name}" Width="auto" Height="25" Foreground="White" VerticalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="0 5 5 5" HorizontalAlignment="Right" Orientation="Horizontal">
                     <Button Content="新增" Width="80" Height="25" Command="{Binding OpenAddViewCommand}" Margin="0 0 10 0"/>

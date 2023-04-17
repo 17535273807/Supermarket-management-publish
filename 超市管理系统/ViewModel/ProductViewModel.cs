@@ -15,7 +15,7 @@ namespace 超市管理系统.ViewModel
     public class ProductViewModel : ViewModelBase2
     {
 
-        private ProductProvider productProvider = new ProductProvider();
+        public static ProductProvider productProvider = new ProductProvider();
 
         private List<Product> productList = new List<Product>();
         public List<Product> ProductList
@@ -123,7 +123,7 @@ namespace 超市管理系统.ViewModel
                     if (Product == null) return;
                     var vm = ServiceLocator.Current.GetInstance<EditProductViewModel>();
                     vm.Product = Product;
-                    EditSupplierView window = new EditSupplierView();
+                    EditProductView window = new EditProductView();
                     if (window.ShowDialog().Value == true)
                     {
                         ProductList = productProvider.GetAll();

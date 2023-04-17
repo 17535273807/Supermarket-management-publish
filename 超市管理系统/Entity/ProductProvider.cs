@@ -8,6 +8,8 @@ namespace 超市管理系统.Entity
 {
     public class ProductProvider : ProviderBase, IProvider<Product>
     {
+        public static ProductProvider Current = new ProductProvider();
+
         public int Delete(Product entity)
         {
             db.Entry(entity).State = System.Data.Entity.EntityState.Deleted;

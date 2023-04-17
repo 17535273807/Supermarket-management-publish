@@ -52,12 +52,6 @@ namespace 超市管理系统.ViewModel
             SimpleIoc.Default.Register<AddProductViewModel>();
             SimpleIoc.Default.Register<EditProductViewModel>();
 
-
-
-
-
-
-
         }
 
         /// <summary>

@@ -16,6 +16,7 @@ namespace 超市管理系统.Entity
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
+        public string Type { get; set; }
         public double Quantity { get; set; }
         public Nullable<System.DateTime> InsertDate { get; set; }
     }

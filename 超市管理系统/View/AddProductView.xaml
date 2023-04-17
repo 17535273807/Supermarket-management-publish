@@ -50,7 +50,7 @@
                 
                 <StackPanel Orientation="Horizontal" Height="30" Margin="0 5 0 10">
                     <TextBlock Text="单价：" Width="70" FontSize="18" VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding Product.Price,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" MinWidth="200" Height="30" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Product.Price,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" MinWidth="200" Height="30" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Height="30" Margin="0 5 0 10">
@@ -68,7 +68,7 @@
                             <i:InvokeCommandAction Command="{Binding SelectImageCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <Image></Image>
+                    <Image Source="{Binding ImageSource}"></Image>
                 </Border>
             </Grid>
             
