@@ -14,9 +14,6 @@ namespace 超市管理系统.ViewModel
 {
     public class ProductViewModel : ViewModelBase2
     {
-
-        public static ProductProvider productProvider = new ProductProvider();
-
         private List<Product> productList = new List<Product>();
         public List<Product> ProductList
         {
@@ -45,7 +42,7 @@ namespace 超市管理系统.ViewModel
             {
                 return new RelayCommand<UserControl>((view) =>
                 {
-                    ProductList = productProvider.GetAll();
+                    ProductList = ProductProvider.Current.GetAll();
                     Product = null;
                 });
             }
@@ -63,7 +60,7 @@ namespace 超市管理系统.ViewModel
                     AddProductView window = new AddProductView();
                     if (window.ShowDialog().Value == true)
                     {
-                        ProductList = productProvider.GetAll();
+                        ProductList = ProductProvider.Current.GetAll();
                     }
                 });
             }
@@ -81,11 +78,11 @@ namespace 超市管理系统.ViewModel
                     if (Product == null) return;
                     if (Dialog.Show())
                     {
-                        var count = productProvider.Delete(Product);
+                        var count = ProductProvider.Current.Delete(Product);
                         if (count > 0)
                         {
                             MessageBox.Show("操作成功！");
-                            ProductList = productProvider.GetAll();
+                            ProductList = ProductProvider.Current.GetAll();
                         }
                     }
 
@@ -102,7 +99,7 @@ namespace 超市管理系统.ViewModel
             {
                 return new RelayCommand<UserControl>((view) =>
                 {
-                    int count = productProvider.Save();
+                    int count = ProductProvider.Current.Save();
                     if (count > 0)
                     {
                         MessageBox.Show("保存成功");
@@ -126,7 +123,7 @@ namespace 超市管理系统.ViewModel
                     EditProductView window = new EditProductView();
                     if (window.ShowDialog().Value == true)
                     {
-                        ProductList = productProvider.GetAll();
+                        ProductList = ProductProvider.Current.GetAll();
                     }
                 });
             }

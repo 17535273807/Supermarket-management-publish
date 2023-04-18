@@ -79,7 +79,7 @@ namespace 超市管理系统.ViewModel
                 return new RelayCommand<UserControl>((view) =>
                 {
                     StockList = stockProvider.GetAll();
-                    ProductList = ProductViewModel.productProvider.GetAll();
+                    ProductList = ProductProvider.Current.GetAll();
                     Product = null;
                     Stock = new Stock() 
                     { 
@@ -101,7 +101,7 @@ namespace 超市管理系统.ViewModel
                     AddProductView window = new AddProductView();
                     if (window.ShowDialog().Value == true)
                     {
-                        ProductList = ProductViewModel.productProvider.GetAll();
+                        ProductList = ProductProvider.Current.GetAll();
                     }
                 });
             }
@@ -116,17 +116,16 @@ namespace 超市管理系统.ViewModel
                 return new RelayCommand<UserControl>((view) =>
                 {
 
-                    if (Product == null) return;
+                    if (CurrentStock == null) return;
                     if (Dialog.Show())
                     {
-                        var count = ProductViewModel.productProvider.Delete(Product);
+                        var count = StockProvider.Current.Delete(CurrentStock);
                         if (count > 0)
                         {
                             MessageBox.Show("操作成功！");
-                            ProductList = ProductViewModel.productProvider.GetAll();
+                            StockList = StockProvider.Current.GetAll();
                         }
                     }
-
                 });
             }
         }
@@ -157,7 +156,7 @@ namespace 超市管理系统.ViewModel
                     { 
                         //增加库存
                         Product.Quantity += Stock.Quantity;
-                        ProductViewModel.productProvider.Update(Product);
+                        ProductProvider.Current.Update(Product);
 
                         //刷新界面
                         StockList = stockProvider.GetAll();
@@ -184,7 +183,7 @@ namespace 超市管理系统.ViewModel
                     EditProductView window = new EditProductView();
                     if (window.ShowDialog().Value == true)
                     {
-                        ProductList = ProductViewModel.productProvider.GetAll();
+                        ProductList = ProductProvider.Current.GetAll();
                     }
                 });
             }

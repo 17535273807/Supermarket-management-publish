@@ -29,8 +29,8 @@ namespace 超市管理系统.Entity
         public virtual DbSet<Member> Member { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderDetail> OrderDetail { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Stock> Stock { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
     }
 }

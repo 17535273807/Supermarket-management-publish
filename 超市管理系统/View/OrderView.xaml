@@ -24,6 +24,39 @@
 
         <!--content-->
         <Grid Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding ProductList}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="200" Height="250" Margin="5">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#384560"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="{Binding BitmapImage}"  ToolTip="{Binding Name}" Stretch="None" Margin="5"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Title}" Foreground="White" FontSize="16" TextWrapping="Wrap" Margin="10 5 10 5" VerticalAlignment="Center"/>
+                            <DockPanel Grid.Row="2">
+                                <TextBlock Text="{Binding Price,StringFormat={}{0:C}}" Foreground="Red" HorizontalAlignment="Left" FontSize="16" Margin="10 5 0 5"/>
+                                <Button Content="加入购物车" Style="{StaticResource OrderButtonStyle}" HorizontalAlignment="Right" Margin="0 5 10 5"/>
+                            </DockPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
         </Grid>
     </Grid>

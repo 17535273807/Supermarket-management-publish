@@ -92,6 +92,7 @@
     <Compile Include="Entity\Model\BaseModel.cs" />
     <Compile Include="Entity\Model\Member.cs" />
     <Compile Include="Entity\Model\Product.cs" />
+    <Compile Include="Entity\Model\Stock.cs" />
     <Compile Include="Entity\Order.cs">
       <DependentUpon>ShoppingDBModel.tt</DependentUpon>
     </Compile>

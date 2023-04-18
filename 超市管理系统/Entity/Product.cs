@@ -17,6 +17,7 @@ namespace 超市管理系统.Entity
         public int Id { get; set; }
         public int SupplierId { get; set; }
         public string Name { get; set; }
+        public string Title { get; set; }
         public string Image { get; set; }
         public string Unit { get; set; }
         public Nullable<double> Price { get; set; }

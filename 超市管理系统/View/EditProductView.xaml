@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         DataContext="{Binding Source={StaticResource Locator},Path=EditProductViewModel}"
-        Title="修改商品" Height="450" Width="650">
+        Title="修改商品" Height="550" Width="650">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}"/>
@@ -59,6 +59,10 @@
                     <TextBox Text="{Binding Product.Quantity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" MinWidth="200" Height="30" VerticalAlignment="Center"/>
                 </StackPanel>
 
+                <StackPanel Orientation="Horizontal" Height="30" Margin="0 5 0 10">
+                    <TextBlock Text="标题：" Width="70" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Product.Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" MaxLength="50" MinWidth="200" Height="30" VerticalAlignment="Center"/>
+                </StackPanel>
             </StackPanel>
 
             <Grid Grid.Column="1" Margin="10" Background="#E2E2E2" Cursor="Hand">

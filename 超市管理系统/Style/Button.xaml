@@ -30,4 +30,39 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="OrderButtonStyle" TargetType="Button">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="90"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#196BA3"/>
+        <Setter Property="Background" Value="#FDB706"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                            Height="{TemplateBinding Height}" 
+                            Width="{TemplateBinding Width}" 
+                            BorderBrush="Transparent" 
+                            BorderThickness="1" 
+                            CornerRadius="15">
+                        <TextBlock x:Name="textblock" 
+                                       Text="{TemplateBinding Content}" 
+                                       Foreground="{TemplateBinding Foreground}" 
+                                       FontSize="{TemplateBinding FontSize}"
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" 
+                                       Margin="5"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#2383FC"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
