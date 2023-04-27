@@ -15,9 +15,11 @@ namespace 超市管理系统.Entity
     public partial class Order
     {
         public int Id { get; set; }
+        public string SN { get; set; }
         public int CustomerId { get; set; }
         public System.DateTime OrderDate { get; set; }
         public string OrderState { get; set; }
         public Nullable<System.DateTime> InsertDate { get; set; }
+        public Nullable<System.DateTime> PayDate { get; set; }
     }
 }

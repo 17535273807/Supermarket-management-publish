@@ -18,7 +18,7 @@ namespace 超市管理系统.Entity
 
         public List<Order> GetAll()
         {
-            return db.Order.ToList();
+            return db.Order.OrderByDescending(t => t.InsertDate).ToList();
         }
 
         public int Insert(Order entity)

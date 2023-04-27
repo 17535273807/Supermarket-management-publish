@@ -51,6 +51,11 @@ namespace 超市管理系统.ViewModel
             SimpleIoc.Default.Register<EditMemberViewModel>();
             SimpleIoc.Default.Register<AddProductViewModel>();
             SimpleIoc.Default.Register<EditProductViewModel>();
+            SimpleIoc.Default.Register<CustomerWindowViewModel>();
+            SimpleIoc.Default.Register<ShoppingCartViewModel>();
+            SimpleIoc.Default.Register<CustomerOrderViewModel>();
+            SimpleIoc.Default.Register<SignupViewModel>();
+            
 
         }
 
@@ -82,6 +87,10 @@ namespace 超市管理系统.ViewModel
         public EditMemberViewModel EditMemberViewModel => ServiceLocator.Current.GetInstance<EditMemberViewModel>();
         public AddProductViewModel AddProductViewModel => ServiceLocator.Current.GetInstance<AddProductViewModel>();
         public EditProductViewModel EditProductViewModel => ServiceLocator.Current.GetInstance<EditProductViewModel>();
+        public CustomerWindowViewModel CustomerWindowViewModel => ServiceLocator.Current.GetInstance<CustomerWindowViewModel>();
+        public ShoppingCartViewModel ShoppingCartViewModel => ServiceLocator.Current.GetInstance<ShoppingCartViewModel>();
+        public CustomerOrderViewModel CustomerOrderViewModel => ServiceLocator.Current.GetInstance<CustomerOrderViewModel>();
+        public SignupViewModel SignupViewModel => ServiceLocator.Current.GetInstance<SignupViewModel>();
 
 
         

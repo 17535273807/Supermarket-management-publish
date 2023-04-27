@@ -14,9 +14,6 @@ namespace 超市管理系统.ViewModel
 {
     public class CustomerViewModel: ViewModelBase2
     {
-
-        private CustomerProvider customerProvider = new CustomerProvider();
-
         private List<Customer> customerList = new List<Customer>();
         public List<Customer> CustomerList
         {
@@ -42,7 +39,7 @@ namespace 超市管理系统.ViewModel
             {
                 return new RelayCommand<UserControl>((view) =>
                 {
-                    CustomerList = customerProvider.GetAll();
+                    CustomerList = CustomerProvider.Current.GetAll();
                     Customer = null; 
                 });
             }
@@ -60,7 +57,7 @@ namespace 超市管理系统.ViewModel
                     AddCustomerView addCustomerView=new AddCustomerView();
                     if (addCustomerView.ShowDialog().Value == true)
                     {
-                        CustomerList = customerProvider.GetAll();
+                        CustomerList = CustomerProvider.Current.GetAll();
                     }
                 });
             }
@@ -78,11 +75,11 @@ namespace 超市管理系统.ViewModel
                     if (Customer == null) return;
                     if (Dialog.Show())
                     {
-                        var count = customerProvider.Delete(Customer);
+                        var count = CustomerProvider.Current.Delete(Customer);
                         if (count > 0)
                         {
                             MessageBox.Show("操作成功！");
-                            CustomerList = customerProvider.GetAll();
+                            CustomerList = CustomerProvider.Current.GetAll();
                         }
                     }
                     
@@ -99,7 +96,7 @@ namespace 超市管理系统.ViewModel
             {
                 return new RelayCommand<UserControl>((view) =>
                 {
-                    int count = customerProvider.Save();
+                    int count = CustomerProvider.Current.Save();
                     if(count> 0)
                     {
                         MessageBox.Show("保存成功");
@@ -123,7 +120,7 @@ namespace 超市管理系统.ViewModel
                     EditCustomerView editCustomerView = new EditCustomerView();
                     if (editCustomerView.ShowDialog().Value == true)
                     {
-                        CustomerList = customerProvider.GetAll();
+                        CustomerList = CustomerProvider.Current.GetAll();
                     }
                 });
             }

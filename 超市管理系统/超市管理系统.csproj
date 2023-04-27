@@ -91,6 +91,8 @@
     <Compile Include="Entity\MemberProvider.cs" />
     <Compile Include="Entity\Model\BaseModel.cs" />
     <Compile Include="Entity\Model\Member.cs" />
+    <Compile Include="Entity\Model\Order.cs" />
+    <Compile Include="Entity\Model\OrderDetail.cs" />
     <Compile Include="Entity\Model\Product.cs" />
     <Compile Include="Entity\Model\Stock.cs" />
     <Compile Include="Entity\Order.cs">
@@ -129,7 +131,9 @@
       <DependentUpon>ShoppingDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\SupplierProvider.cs" />
+    <Compile Include="Enums\CurrentUserType.cs" />
     <Compile Include="Enums\LevelType.cs" />
+    <Compile Include="Enums\OrderState.cs" />
     <Compile Include="Enums\ProductType.cs" />
     <Compile Include="Enums\StockType.cs" />
     <Compile Include="Enums\UnitType.cs" />
@@ -139,7 +143,9 @@
     <Compile Include="ViewModel\AddMemberViewModel.cs" />
     <Compile Include="ViewModel\AddProductViewModel.cs" />
     <Compile Include="ViewModel\AddSupplierViewModel.cs" />
+    <Compile Include="ViewModel\CustomerOrderViewModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
+    <Compile Include="ViewModel\CustomerWindowViewModel.cs" />
     <Compile Include="ViewModel\EditCustomerViewModel.cs" />
     <Compile Include="ViewModel\EditMemberViewModel.cs" />
     <Compile Include="ViewModel\EditProductViewModel.cs" />
@@ -154,6 +160,8 @@
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\OutStorageViewModel.cs" />
     <Compile Include="ViewModel\SettingViewModel.cs" />
+    <Compile Include="ViewModel\ShoppingCartViewModel.cs" />
+    <Compile Include="ViewModel\SignupViewModel.cs" />
     <Compile Include="ViewModel\SupplierViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase2.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -169,8 +177,14 @@
     <Compile Include="View\AddSupplierView.xaml.cs">
       <DependentUpon>AddSupplierView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CustomerOrderView.xaml.cs">
+      <DependentUpon>CustomerOrderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CustomerWindow.xaml.cs">
+      <DependentUpon>CustomerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Dialog.xaml.cs">
       <DependentUpon>Dialog.xaml</DependentUpon>
@@ -214,6 +228,12 @@
     <Compile Include="View\SettingView.xaml.cs">
       <DependentUpon>SettingView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ShoppingCartView.xaml.cs">
+      <DependentUpon>ShoppingCartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SignupView.xaml.cs">
+      <DependentUpon>SignupView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SupplierView.xaml.cs">
       <DependentUpon>SupplierView.xaml</DependentUpon>
     </Compile>
@@ -234,6 +254,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Style\DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\ListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -261,7 +285,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CustomerOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CustomerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CustomerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -318,6 +350,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ShoppingCartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SignupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

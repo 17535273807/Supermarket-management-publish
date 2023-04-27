@@ -16,6 +16,7 @@ namespace 超市管理系统.Entity
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Password { get; set; }
         public string Address { get; set; }
         public string Telephone { get; set; }
         public Nullable<System.DateTime> InsertDate { get; set; }

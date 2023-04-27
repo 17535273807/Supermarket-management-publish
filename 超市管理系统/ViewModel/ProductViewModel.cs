@@ -8,12 +8,25 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using 超市管理系统.Entity;
+using 超市管理系统.Enums;
 using 超市管理系统.View;
 
 namespace 超市管理系统.ViewModel
 {
     public class ProductViewModel : ViewModelBase2
     {
+        private string keyword = string.Empty;
+        /// <summary>
+        /// 搜索关键词
+        /// </summary>
+        public string Keyword
+        {
+            get { return keyword; }
+            set { keyword = value; RaisePropertyChanged(); }
+        }
+
+
+
         private List<Product> productList = new List<Product>();
         public List<Product> ProductList
         {
@@ -125,6 +138,40 @@ namespace 超市管理系统.ViewModel
                     {
                         ProductList = ProductProvider.Current.GetAll();
                     }
+                });
+            }
+        }
+
+
+
+        /// <summary>
+        /// 加载所有商品
+        /// </summary>
+        public RelayCommand<UserControl> SelectCommand
+        {
+            get
+            {
+                return new RelayCommand<UserControl>((view) =>
+                {
+                    ProductList = ProductProvider.Current.GetAll();
+                    Product = null;
+                });
+            }
+        }
+
+
+
+        /// <summary>
+        /// 查询当前商品的记录
+        /// </summary>
+        public RelayCommand<UserControl> SearchCommand
+        {
+            get
+            {
+                return new RelayCommand<UserControl>((view) =>
+                {
+                    ProductList = ProductProvider.Current.GetAll().Where(t=>t.Name.Contains(Keyword)).ToList();
+                    Product = null;
                 });
             }
         }

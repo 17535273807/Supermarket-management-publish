@@ -25,11 +25,20 @@
         <!--content-->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition />
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <DataGrid ItemsSource="{Binding ProductList}"
-                      SelectedItem="{Binding Product}" FontSize="14"
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
+                    <TextBlock Text="查询当前商品:" VerticalAlignment="Center" Margin="5 0 5 0" Foreground="{Binding AppData.Foreground}"/>
+                    <TextBox Text="{Binding Keyword, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" MinWidth="100" MaxWidth="200" Margin="5 0 5 0" Height="25" VerticalAlignment="Center"/>
+                    <Button Content="查询" Width="80" Height="25" Command="{Binding SearchCommand}" Margin="5 0 5 0"/>
+                    <Button Content="全部" Width="80" Height="25" Command="{Binding SelectCommand}" Margin="5 0 5 0"/>
+                </StackPanel>
+            </Grid>
+            <DataGrid ItemsSource="{Binding ProductList}" Grid.Row="1"
+                      SelectedItem="{Binding Product}" 
                       Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
 
@@ -121,7 +130,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>

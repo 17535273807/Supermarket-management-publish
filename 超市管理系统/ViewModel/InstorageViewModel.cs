@@ -14,10 +14,7 @@ using 超市管理系统.View;
 namespace 超市管理系统.ViewModel
 {
     public class InstorageViewModel : ViewModelBase2
-    {
-        //private ProductProvider productProvider = new ProductProvider();
-        private StockProvider stockProvider = new StockProvider();
-        
+    {      
 
         private List<Product> productList = new List<Product>();
         public List<Product> ProductList
@@ -78,57 +75,19 @@ namespace 超市管理系统.ViewModel
             {
                 return new RelayCommand<UserControl>((view) =>
                 {
-                    StockList = stockProvider.GetAll();
+                    StockList = StockProvider.Current.GetAll().Where(t => t.Type == StockType.入库.ToString()).ToList();
                     ProductList = ProductProvider.Current.GetAll();
                     Product = null;
                     Stock = new Stock() 
                     { 
                         Type = StockType.入库.ToString()                         
                     };
+                    CurrentStock = null;
                 });
             }
         }
 
-        /// <summary>
-        /// 新增商品
-        /// </summary>
-        public RelayCommand<UserControl> OpenAddViewCommand
-        {
-            get
-            {
-                return new RelayCommand<UserControl>((view) =>
-                {
-                    AddProductView window = new AddProductView();
-                    if (window.ShowDialog().Value == true)
-                    {
-                        ProductList = ProductProvider.Current.GetAll();
-                    }
-                });
-            }
-        }
-        /// <summary>
-        /// 删除当前选中的商品
-        /// </summary>
-        public RelayCommand<UserControl> DeleteCommand
-        {
-            get
-            {
-                return new RelayCommand<UserControl>((view) =>
-                {
-
-                    if (CurrentStock == null) return;
-                    if (Dialog.Show())
-                    {
-                        var count = StockProvider.Current.Delete(CurrentStock);
-                        if (count > 0)
-                        {
-                            MessageBox.Show("操作成功！");
-                            StockList = StockProvider.Current.GetAll();
-                        }
-                    }
-                });
-            }
-        }
+        
 
         /// <summary>
         /// 保存
@@ -151,7 +110,7 @@ namespace 超市管理系统.ViewModel
                     }
                     Stock.InsertDate = DateTime.Now;
                     Stock.ProductId = Product.Id;
-                    int count = stockProvider.Insert(Stock);
+                    int count = StockProvider.Current.Insert(Stock);
                     if (count > 0)
                     { 
                         //增加库存
@@ -159,7 +118,7 @@ namespace 超市管理系统.ViewModel
                         ProductProvider.Current.Update(Product);
 
                         //刷新界面
-                        StockList = stockProvider.GetAll();
+                        StockList = StockProvider.Current.GetAll();
 
                         MessageBox.Show("保存成功");
                         Stock = new Stock() { Type = StockType.入库.ToString() };
@@ -169,21 +128,29 @@ namespace 超市管理系统.ViewModel
         }
 
         /// <summary>
-        /// 修改供应商
+        /// 删除入库记录
         /// </summary>
-        public RelayCommand<UserControl> EditCommand
+        public RelayCommand<UserControl> DeleteCommand
         {
             get
             {
                 return new RelayCommand<UserControl>((view) =>
                 {
-                    if (Product == null) return;
-                    var vm = ServiceLocator.Current.GetInstance<EditProductViewModel>();
-                    vm.Product = Product;
-                    EditProductView window = new EditProductView();
-                    if (window.ShowDialog().Value == true)
+                    if (CurrentStock == null) return;
+                    int count = StockProvider.Current.Delete(CurrentStock);
+                    if (count > 0)
                     {
-                        ProductList = ProductProvider.Current.GetAll();
+                        //更新库存                        
+                        var product = ProductProvider.Current.GetAll().FirstOrDefault(t => t.Id == CurrentStock.ProductId);
+                        if (product != null)
+                        {
+                            product.Quantity -= CurrentStock.Quantity;
+                            ProductProvider.Current.Update(product);
+                        }
+                        //刷新界面
+                        MessageBox.Show("操作成功");
+                        StockList = StockProvider.Current.GetAll().Where(t => t.Type == StockType.入库.ToString()).ToList();
+                        CurrentStock= null;
                     }
                 });
             }

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:超市管理系统.View" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              Background="{Binding AppData.Background}"        
-             DataContext="{Binding Source={StaticResource Locator},Path=GoodsViewModel}"
+             DataContext="{Binding Source={StaticResource Locator},Path=OrderDetailViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -19,12 +19,138 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Border BorderBrush="#22304B" BorderThickness="0 0 0 1">
-            <TextBlock Text="订单详情" VerticalAlignment="Center" Margin="5 0 0 0" Foreground="{Binding AppData.Foreground}" FontSize="16"/>
+            <TextBlock Text="商品管理" VerticalAlignment="Center" Margin="5 0 0 0" Foreground="{Binding AppData.Foreground}" FontSize="16"/>
         </Border>
 
         <!--content-->
         <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
+                    <TextBlock Text="选择顾客:" VerticalAlignment="Center" Margin="5 0 5 0" Foreground="{Binding AppData.Foreground}"/>
+                    <ComboBox ItemsSource="{Binding CustomerList}" 
+                              SelectedValue="{Binding Customer}" 
+                              MinWidth="100" MaxWidth="200" Margin="5 0 5 0" Height="25"
+                              DisplayMemberPath="Name" VerticalAlignment="Center"/>
+                    <Button Content="查询" Width="80" Height="25" Command="{Binding SearchCommand}" Margin="5 0 5 0"/>
+                    <Button Content="全部" Width="80" Height="25" Command="{Binding SelectCommand}" Margin="5 0 5 0"/>
+                </StackPanel>
+            </Grid>
+            <ScrollViewer Grid.Row="1" FontSize="14">
+                <ItemsControl ItemsSource="{Binding OrderList}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#505B70" BorderThickness="1" Margin="10">
+                                <Grid>
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#384560"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Border Grid.Row="0" Height="30" Background="#505B70" >
+                                        <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            <Run Text=" 顾客:"/>
+                                            <Run Text="{Binding CustomerName,Mode=OneWay}" Foreground="Yellow"/>
+                                            <Run Text=" 订单号:"/>
+                                            <Run Text="{Binding SN}" Foreground="Yellow"/>
+                                            <Run Text=" 状态:"/>
+                                            <Run Text="{Binding OrderState}" Foreground="Yellow"/>
+                                            <Run Text=" 支付时间:"/>
+                                            <Run Text="{Binding PayDate}" Foreground="Yellow"/>
+                                        </TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="1">
+                                        <DataGrid ItemsSource="{Binding Children}" Style="{StaticResource DataGridStyle}">
+                                            <DataGrid.Columns>
+                                                <DataGridTemplateColumn Width="auto" Header="商品名称">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBox Text="{Binding ProductTitle,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}"/>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
 
+                                                <DataGridTemplateColumn Width="auto" Header="商品图片">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <Image Source="{Binding BitmapImage}">
+                                                                    <Image.ToolTip>
+                                                                        <Grid>
+                                                                            <Image Source="{Binding BitmapImage}"></Image>
+                                                                        </Grid>
+                                                                    </Image.ToolTip>
+                                                                </Image>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+
+
+                                                <DataGridTemplateColumn Width="auto" Header="单价">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBox Text="{Binding Price,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}" HorizontalAlignment="Left" />
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+
+                                                <DataGridTemplateColumn Width="auto" Header="数量">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBox Text="{Binding QuantityEx,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}" HorizontalAlignment="Left" />
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+
+
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>            
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="0 5 5 5" HorizontalAlignment="Left" Orientation="Horizontal" >
+                    <TextBlock Text="销售总额：" Width="auto" Height="25" Margin="0 0 10 0" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding SumMoney,StringFormat={}{0:C}}" Margin="0 0 30 0" Width="auto" Height="25" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Text="订单数量：" Width="auto" Height="25" Margin="0 0 10 0" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding SumOrderCount}" Margin="0 0 30 0" Width="auto" Height="25" Foreground="White" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="0 5 5 5" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Content="删除" Width="80" Height="25" Command="{Binding DeleteCommand}" Margin="0 0 10 0" Visibility="Collapsed"/>
+                </StackPanel>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

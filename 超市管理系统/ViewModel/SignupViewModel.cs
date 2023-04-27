@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using 超市管理系统.Entity;
 
 namespace 超市管理系统.ViewModel
 {
-    public  class AddCustomerViewModel : ViewModelBase2
+    public class SignupViewModel : ViewModelBase2
     {
         private Customer customer;
         public Customer Customer
@@ -39,29 +38,25 @@ namespace 超市管理系统.ViewModel
             {
                 return new RelayCommand<Window>((view) =>
                 {
-                    if(string.IsNullOrEmpty(Customer.Name))
+                    if (string.IsNullOrEmpty(Customer.Name))
                     {
                         MessageBox.Show("姓名不能为空!");
-                        return; 
-                    }
-
-                    if (string.IsNullOrEmpty(Customer.Telephone))
-                    {
-                        MessageBox.Show("电话不能为空!");
                         return;
                     }
+                   
 
-                    if (string.IsNullOrEmpty(Customer.Address))
+                    if (string.IsNullOrEmpty(Customer.Password))
                     {
-                        MessageBox.Show("地址不能为空!");
+                        MessageBox.Show("密码不能为空!");
                         return;
                     }
+                   
 
                     Customer.InsertDate = DateTime.Now;
                     int count = CustomerProvider.Current.Insert(Customer);
-                    if(count > 0)
+                    if (count > 0)
                     {
-                        MessageBox.Show("操作成功!");
+                        MessageBox.Show("恭喜您注册成功!");
                     }
                     view.DialogResult = true;
                     view.Close();
@@ -80,6 +75,5 @@ namespace 超市管理系统.ViewModel
                 });
             }
         }
-
     }
 }

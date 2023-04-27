@@ -1,0 +1,55 @@
+﻿<Window x:Class="超市管理系统.View.CustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:超市管理系统.View" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Source={StaticResource Locator},Path=CustomerWindowViewModel}"
+        Background="{Binding AppData.Background}"
+        Title="{Binding AppData.FullTitle}" Height="750" Width="1200">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <!--title-->
+        <Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock VerticalAlignment="Center" FontSize="18">
+                    <Run Text="亲爱的" Foreground="White"/>
+                    <Run Text="{Binding AppData.CurrentCustomer.Name}" Foreground="Red"/>
+                    <Run Text="欢迎光临本店，祝您购物愉快" Foreground="White"/>
+                </TextBlock>
+                    
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>                
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton x:Name="OrderView"  Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="商品下单" Tag="&#xf217;"/>
+                <RadioButton x:Name="ShoppingCartView"   Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="购物车" Tag="&#xf07a;"/>
+                <RadioButton x:Name="CustomerOrderView"   Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="订单详情" Tag="&#xf07a;"/>
+            </StackPanel>
+        </Grid>      
+
+        <!--content-->
+        <Grid Grid.Row="2">
+            <ContentControl x:Name="container" Grid.Row="1" >
+                <local:OrderView/>
+            </ContentControl>
+        </Grid>
+    </Grid>
+</Window>

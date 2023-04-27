@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:超市管理系统.View" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              Background="{Binding AppData.Background}"        
-             DataContext="{Binding Source={StaticResource Locator},Path=GoodsViewModel}"
+             DataContext="{Binding Source={StaticResource Locator},Path=OutStorageViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -19,12 +19,134 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Border BorderBrush="#22304B" BorderThickness="0 0 0 1">
-            <TextBlock Text="出库管理" VerticalAlignment="Center" Margin="5 0 0 0" Foreground="{Binding AppData.Foreground}" FontSize="16"/>
+            <TextBlock Text="商品管理" VerticalAlignment="Center" Margin="5 0 0 0" Foreground="{Binding AppData.Foreground}" FontSize="16"/>
         </Border>
 
         <!--content-->
         <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
+                    <TextBlock Text="查询当前商品:" VerticalAlignment="Center" Margin="5 0 5 0" Foreground="{Binding AppData.Foreground}"/>
+                    <ComboBox ItemsSource="{Binding ProductList}" 
+                              SelectedValue="{Binding Product}" 
+                              MinWidth="100" MaxWidth="200" Margin="5 0 5 0" Height="25"
+                              DisplayMemberPath="Name" VerticalAlignment="Center"/>
+                    <Button Content="查询" Width="80" Height="25" Command="{Binding SearchCommand}" Margin="5 0 5 0"/>
+                    <Button Content="全部" Width="80" Height="25" Command="{Binding SelectCommand}" Margin="5 0 5 0"/>
+                </StackPanel>
+            </Grid>
+            <DataGrid Grid.Row="1" FontSize="14"
+                      ItemsSource="{Binding StockList}"                      
+                      SelectedItem="{Binding CurrentStock}" 
+                      Style="{StaticResource DataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="auto" Header="序号">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding Id}" Style="{StaticResource DataGridTextBoxStyle}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
+                    <DataGridTemplateColumn Width="auto" Header="商品编号">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding ProductId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="auto" Header="商品名称">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding ProductName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="auto" Header="商品图片">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Image Source="{Binding BitmapImage}">
+                                        <Image.ToolTip>
+                                            <Grid>
+                                                <Image Source="{Binding BitmapImage}"></Image>
+                                            </Grid>
+                                        </Image.ToolTip>
+                                    </Image>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="auto" Header="类型">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding Type,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}" HorizontalAlignment="Left" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="auto" Header="数量">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding Quantity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}" HorizontalAlignment="Left" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="auto" Header="单位">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding Unit,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}" HorizontalAlignment="Left" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="auto" Header="入库日期">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding InsertDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DataGridTextBoxStyle}" HorizontalAlignment="Left" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="0 5 5 5" HorizontalAlignment="Left" Orientation="Horizontal" >
+                    <TextBlock Text="当前：" Width="auto" Height="25" Margin="0 0 10 0" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding CurrentStock.ProductName}" Width="auto" Height="25" Foreground="White" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="0 5 5 5" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Content="删除" Width="80" Height="25" Command="{Binding DeleteCommand}" Margin="0 0 10 0" Visibility="Collapsed"/>
+                </StackPanel>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

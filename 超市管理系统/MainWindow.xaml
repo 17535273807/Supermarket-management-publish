@@ -51,7 +51,6 @@
                 </StackPanel>
                 <StackPanel Grid.Row="1">
                     <RadioButton x:Name="IndexView" Checked="View_Checked" Style="{StaticResource MenuRadioButtonStyle}" Content="首页" Tag="&#xf015;"/>
-                    <RadioButton x:Name="OrderView"  Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="商品下单" Tag="&#xf217;"/>
                     <RadioButton x:Name="ProductView" Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="商品管理" Tag="&#xf16b;"/>
                     <RadioButton x:Name="CustomerView" Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="顾客管理" Tag="&#xf2bc;"/>
                     <RadioButton x:Name="SupplierView" Checked="View_Checked"  Style="{StaticResource MenuRadioButtonStyle}" Content="供应商管理" Tag="&#xf0d1;"/>
