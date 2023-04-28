@@ -33,7 +33,8 @@ namespace 超市管理系统.ViewModel
             {
                 return new RelayCommand<UserControl>((view) =>
                 {
-
+                    SumPrice = 0;
+                    if (AppData.CurrentOrder == null) return;
                     SumPrice = AppData.CurrentOrder.Children.Sum(x => x.Price * x.Quantity);
                 });
             }

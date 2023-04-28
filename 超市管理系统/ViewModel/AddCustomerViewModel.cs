@@ -45,6 +45,12 @@ namespace 超市管理系统.ViewModel
                         return; 
                     }
 
+                    if (string.IsNullOrEmpty(Customer.Password))
+                    {
+                        MessageBox.Show("密码不能为空!");
+                        return;
+                    }
+
                     if (string.IsNullOrEmpty(Customer.Telephone))
                     {
                         MessageBox.Show("电话不能为空!");
